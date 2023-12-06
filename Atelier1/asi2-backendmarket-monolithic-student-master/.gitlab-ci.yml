@@ -1,0 +1,31 @@
+stages:
+  - package
+  - build
+
+job_package:
+  image: maven:3.6-jdk-11
+  stage: package
+  script:
+    - mvn package
+  artifacts:
+    paths:
+    - ./target/*.jar
+    expire_in: 1 week
+  only:
+    - master
+
+job_build:
+  image: docker:19.03.12
+  stage: build
+  services:
+    - docker:19.03.12-dind
+  script:
+    - ls -a .
+    - ls -a ./target/ 
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY/js-asi2/asi2-backendmarket-monolithic-student/asi2-backendmarket-monolithic-student:latest -f ./Dockerfile .
+    - docker push $CI_REGISTRY/js-asi2/asi2-backendmarket-monolithic-student/asi2-backendmarket-monolithic-student:latest 
+    
+  only:
+    - master
+
