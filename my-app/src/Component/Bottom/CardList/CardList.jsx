@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
-import {Robot} from '../Robot/Robot';
+import {Card} from '../Card/Card';
+
+
 export const LeftSide =(props)=>{
-    
-    function getAllRobotRender(){
+    //TODO flip flop ?
+    let card_list = useSelector(state=> state.cardReducer.card_list);
+
+    function getCardListRender(){
         let array_render=[];
-        
-        for(var i=0;i<props.robots.robots.length;i++){
+       
+        for(var i=0;i<card_list.leght;i++){
             
             array_render.push(
-                <Robot
-                   key={i}
-                   robot={props.robots.robots[i]}
-                   handleOnRobotSelected={props.handleOnRobotSelected}
+                <Card
+                   card={card_list[i]}
                 />
                 );
         }
         return array_render;
     }
 
-    const display_list = getAllRobotRender();
+    const display_list = getCardListRender();
     return (
             <div>
                {display_list}
