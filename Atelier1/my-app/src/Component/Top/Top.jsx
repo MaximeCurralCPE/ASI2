@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { update_card_list , update_current_list } from '../../slices/cardSlice';
 import { useDispatch } from 'react-redux';
 
-export const Card = (props) =>{
+export const Top = (props) =>{
     const dispatch = useDispatch();
     let current_list = useSelector(state=> state.cardReducer.current_list);
 
