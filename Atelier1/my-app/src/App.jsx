@@ -6,7 +6,6 @@ import { Login } from './Pages/Login'
 import { CreateAccount } from './Pages/CreateAccount'
 import { Store } from './Pages/Store'
 import './App.css'
-
 function App() {
   const [count, setCount] = useState(0)
 
@@ -15,7 +14,7 @@ function App() {
       <BrowserRouter>
         <div>
           <Routes>
-            <Route path="/" element={<Home/>} />
+            <Route path="/" element={<Store/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/create-account" element={<CreateAccount/>} />
             <Route path="/store" element={<Store/>} />
