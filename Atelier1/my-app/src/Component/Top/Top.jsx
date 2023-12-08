@@ -11,14 +11,13 @@ export const Card = (props) =>{
     function handleOnChangeList(){
 
         if (current_list == "market"){
+            new_list = [] //TODO GET either marketlist or inventorylist
             new_current_list = "inventory"
         }
         else if (current_list == "inventory"){
+            new_list = [] //TODO GET either marketlist or inventorylist
             new_current_list = "market"
         }
-
-        new_list = [] //TODO GET either marketlist or inventorylist
-
         dispatch(update_selected_list(new_current_list)); 
         dispatch(update_card_list(new_list));    
     }
