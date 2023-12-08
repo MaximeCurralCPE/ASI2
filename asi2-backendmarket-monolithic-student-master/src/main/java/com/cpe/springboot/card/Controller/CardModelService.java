@@ -6,6 +6,11 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.event.EventListener;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import com.cpe.springboot.card.model.CardDTO;
@@ -14,8 +19,13 @@ import com.cpe.springboot.card.model.CardReference;
 import com.cpe.springboot.common.tools.DTOMapper;
 import com.cpe.springboot.user.model.UserModel;
 
+@EnableJms
 @Service
 public class CardModelService {
+
+	@Autowired
+	private JmsTemplate jmsTemplate;
+
 	private final CardModelRepository cardRepository;
 	private final CardReferenceService cardRefService;
 	private Random rand;
@@ -75,5 +85,17 @@ public class CardModelService {
 	public List<CardModel> getAllCardToSell(){
 		return this.cardRepository.findByUser(null);
 	}
+
+	@EventListener(ApplicationReadyEvent.class)
+	public void doInitAfterStartup(){
+		jmsTemplate.setPubSubDomain(true);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(CardModelService.class, args);
+
+	}
+
+	
 }
 

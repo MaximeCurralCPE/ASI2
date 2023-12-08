@@ -33,10 +33,10 @@
 			<artifactId>spring-boot-starter-activemq</artifactId>
 		</dependency>
 		
-<!-- 		<dependency> -->
-<!-- 		<groupId>org.apache.activemq</groupId> -->
-<!-- 		<artifactId>activemq-broker</artifactId> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-broker</artifactId>
+		</dependency>
 
 <!-- 		<dependency> -->
 <!-- 			<groupId>mysql</groupId> -->
@@ -50,7 +50,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -62,6 +61,12 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.6.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>5.3.10</version>
 		</dependency>
 
 	</dependencies>
