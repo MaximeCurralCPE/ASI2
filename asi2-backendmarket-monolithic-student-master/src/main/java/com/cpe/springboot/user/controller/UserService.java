@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import com.cpe.springboot.card.Controller.CardModelService;
@@ -12,8 +19,22 @@ import com.cpe.springboot.common.tools.DTOMapper;
 import com.cpe.springboot.user.model.UserDTO;
 import com.cpe.springboot.user.model.UserModel;
 
+@EnableJms
 @Service
 public class UserService {
+
+	@Autowired
+	JmsTemplate jmsTemplate;
+
+	@EventListener(ApplicationReadyEvent.class)
+	public void doInitAfterStartup() {
+		jmsTemplate.setPubSubDomain(true);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(UserService.class, args);
+
+	}
 
 	private final UserRepository userRepository;
 	private final CardModelService cardModelService;

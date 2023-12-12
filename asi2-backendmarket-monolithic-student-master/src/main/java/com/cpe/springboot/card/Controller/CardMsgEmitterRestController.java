@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MsgEmitterRestController {
+public class CardMsgEmitterRestController {
     
     @Autowired
     BusService busService;
