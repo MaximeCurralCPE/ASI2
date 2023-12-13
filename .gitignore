@@ -12,8 +12,8 @@ dist
 dist-ssr
 *.local
 
-ASI2/FrontEnd/my-app/node_modules
-
+FrontEnd/my-app/node_modules
+BackEnd/Node/node_modules
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
