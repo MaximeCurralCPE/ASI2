@@ -11,8 +11,8 @@ node_modules/*
 dist
 dist-ssr
 *.local
-Atelier1/my-app/node_modules/
-Atelier1/my-app/node_modules/.vite/deps
+
+ASI2/FrontEnd/my-app/node_modules
 
 # Editor directories and files
 .vscode/*
