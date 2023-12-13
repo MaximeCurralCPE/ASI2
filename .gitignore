@@ -12,7 +12,8 @@ dist
 dist-ssr
 *.local
 
-ASI2/FrontEnd/my-app/node_modules
+Atelier1/
+FrontEnd/my-app/node_modules
 
 # Editor directories and files
 .vscode/*
