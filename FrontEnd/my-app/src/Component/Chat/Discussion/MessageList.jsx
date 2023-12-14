@@ -15,5 +15,15 @@ export const MessageList = (props) => {
         ));
     };
 
-    return <div>{renderMessages()}</div>;
+    return (
+        <div>
+            <div>{renderMessages()}</div>
+            <script src="/socket.io/socket.io.js"></script>
+            <script>
+                var socket = io();
+                socket.emit('myEvent1', "Hello World");
+                socket.on('myEvent2', function(data){alert(data)});
+            </script>
+        </div>
+    );
 };
