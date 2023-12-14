@@ -6,8 +6,9 @@ import { Login } from './Pages/Login'
 import { CreateAccount } from './Pages/CreateAccount'
 import { Store } from './Pages/Store'
 import './App.css'
+
+
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>

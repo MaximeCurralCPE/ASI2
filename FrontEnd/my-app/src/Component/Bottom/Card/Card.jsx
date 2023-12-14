@@ -5,7 +5,6 @@ import { update_selected_card } from '../../../slices/cardSlice';
 import { useDispatch } from 'react-redux';
 
 export const Card = (props) =>{
-    console.log(props.card)
     const dispatch = useDispatch();
 
     function handleOnCardSelected(card_obj){

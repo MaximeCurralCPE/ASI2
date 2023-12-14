@@ -6,12 +6,7 @@ export const cardSlice = createSlice({
   initialState: {
     current_card : {},    
     current_list : "market",
-    card_list : [
-      { id: 1, itemName: 'Item 1', price: 10 },
-      { id: 2, itemName: 'Item 2', price: 20 },
-      { id: 3, itemName: 'Item 3', price: 15 },
-      // Ajoutez d'autres éléments au besoin
-    ],
+    card_list : [],
   },
   // Define the reducers 
   reducers: {

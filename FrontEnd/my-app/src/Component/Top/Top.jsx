@@ -1,39 +1,92 @@
-import React, { useState } from 'react';
-
-
-import { update_card_list , update_current_list } from '../../slices/cardSlice';
+import React, { useEffect, useState } from 'react';
+import { update_card_list , update_current_list, update_selected_card } from '../../slices/cardSlice';
 import { useDispatch,useSelector } from 'react-redux';
 
 export const Top = (props) =>{
     const dispatch = useDispatch();
     let current_list = useSelector(state=> state.cardReducer.current_list);
+    let userID = useSelector(state=> (state.userReducer.userID));
+    userID = userID +1;
+    userID = userID.toString();
 
-    const marketData = [
-        { id: 1, itemName: 'Item 1', price: 10 },
-        { id: 2, itemName: 'Item 2', price: 20 },
-        { id: 3, itemName: 'Item 3', price: 15 },
-        // Ajoutez d'autres éléments au besoin
-      ];
-    const inventoryData = [
-    { id: 'a', itemName: 'Inventory Item A', quantity: 5 },
-    { id: 'b', itemName: 'Inventory Item B', quantity: 10 },
-    { id: 'c', itemName: 'Inventory Item C', quantity: 8 },
-    // Ajoutez d'autres éléments au besoin
-    ];
-    function handleOnChangeList(){
-        
-        console.log("infunction")
-        //let new_list = []
-        
-        if (current_list == "market"){
+
+    useEffect(() => {
+        getInitCardsToSell();
+    }, []);
+
+    const getInitCardsToSell = async () => {
+        let inventoryData = await getUserCards();
             //new_list = inventoryData //TODO GET either marketlist or inventorylist
+        dispatch(update_card_list(inventoryData));
+    }
+
+    const getCardsToSell = async () => {
+
+        let retData = null;
+
+        const response = await fetch('http://localhost:80/api/cards_to_sell', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.status === 200) {
+            retData = await response.json();
+        }
+        else {
+            console.error('There was an error!', await response.text());
+        }
+
+        return retData;
+    }
+
+    
+    const getUserCards = async () => {    
+            let retData = null;
+            let inventory = [];
+            let card = null;
+            
+            const response = await fetch('http://localhost:80/api/user/'+userID, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.status === 200) {
+                retData = await response.json();
+                inventory = await Promise.all(retData.cardList.map(async cardID => {
+                    const reponseForCard = await fetch('http://localhost:80/api/card/'+cardID.toString(), {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    card = await reponseForCard.json();                  
+                    return card;
+                }));
+            }
+            else {
+                console.error('There was an error!', await response.text());
+            }
+    
+            return inventory;
+    }
+
+
+    
+    async function handleOnChangeList(){
+        
+        let currentCard = {}
+        dispatch(update_selected_card(currentCard));
+        if (current_list == "market"){
+            let inventoryData = await getUserCards();
             dispatch(update_card_list(inventoryData));
             current_list = "inventory"
         }
         else if (current_list == "inventory"){
-            
+            let marketData = await getCardsToSell();
             dispatch(update_card_list(marketData));
-            //new_list = marketData //TODO GET either marketlist or inventorylist
             current_list = "market"
         }
         dispatch(update_current_list(current_list)); 

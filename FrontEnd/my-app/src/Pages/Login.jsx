@@ -1,10 +1,13 @@
 import React from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { updateUserID } from '../slices/userSlice';
 
 export const Login = () => {
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [loginState, setLoginState] = useState("is-neutral");
@@ -26,15 +29,20 @@ export const Login = () => {
                 password: password,
             }),
         });
-        if (response.status === 403) {
+
+        // If the reply is good, then we can navigate to the home page
+        if (response.status === 200) {
+            const data = await response.json();
+            console.log("ID");
+            console.log(data);
+            dispatch(updateUserID(data)); // Update the user ID in the store
+            navigate('/store');
+        }
+        else if (response.status === 403) {
             setLoginState("is-invalid");
         }
-        else if (!response.ok) {
+        else {
             console.error('There was an error!', await response.text());
-        } else {
-            const data = await response.json();
-            console.log(data);
-            navigate('/store');
         }
     };
 

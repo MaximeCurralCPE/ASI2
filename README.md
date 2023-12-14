@@ -33,5 +33,15 @@ docker run --name my-nginx-container -p 80:80 -v <YOURPATH>:/etc/nginx/nginx.con
 
 Ex: On veut écrire à l'API, on addresse la requete à 80/api => transforme la requete en enlevant api
 
+## Issues with vite server
+
+You may try:
+
+```bash
+npm install react
+npm install --save-dev @vitejs/plugin-react
+npm install react-redux
+```
+
 
 

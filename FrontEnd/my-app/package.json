@@ -15,7 +15,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
-    "react-redux": "^9.0.2",
+    "react-redux": "^9.0.4",
     "react-router-dom": "^6.20.1",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5"
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
-    "@vitejs/plugin-react": "^4.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
