@@ -4,23 +4,23 @@ import { Panel } from "./Panel/Panel";
 
 import { useSelector } from 'react-redux';
 export const Bottom = () => {
-    let card = useSelector(state => state.cardReducer.current_card);
-
-    if(card.id == undefined){
-        return <div>Bottom
-        <h1>Card List</h1>
-        <CardList></CardList>
-        </div>;
-      }
-    return(
-        <>
-            <div>Bottom
-                <h1>test</h1>
+    let current_card = useSelector(state => state.cardReducer.current_card);
+    console.log(!current_card);
+    if (current_card == null) {
+        return <div>
+            <h1>Card List</h1>
             <CardList></CardList>
+        </div>;
+    }
+    return (
+        <>
+            <div>
+                <h1>test</h1>
+                <CardList></CardList>
             </div>
             <div>
                 <h1>Panel</h1>
-                <Panel card={card}></Panel>
+                <Panel card={current_card}></Panel>
             </div>
         </>
     )

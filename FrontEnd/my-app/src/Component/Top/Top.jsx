@@ -77,7 +77,7 @@ export const Top = (props) =>{
     
     async function handleOnChangeList(){
         
-        let currentCard = {}
+        let currentCard = null
         dispatch(update_selected_card(currentCard));
         if (current_list == "market"){
             let inventoryData = await getUserCards();
@@ -94,8 +94,7 @@ export const Top = (props) =>{
     }
     return (
         <div>
-        <button onClick={handleOnChangeList}>Button</button> 
-        <p>Text on the left</p>
+        <button onClick={handleOnChangeList}>Change list</button> 
         </div>
         );
 

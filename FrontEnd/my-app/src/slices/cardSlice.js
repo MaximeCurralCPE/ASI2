@@ -4,7 +4,7 @@ export const cardSlice = createSlice({
   name: 'Card',
   // Define initial state of the reducer/slice
   initialState: {
-    current_card : {},    
+    current_card : null,    
     current_list : "market",
     card_list : [],
   },
