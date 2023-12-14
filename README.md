@@ -44,4 +44,7 @@ npm install react-redux
 ```
 
 
+docker run --name my-nginx-container -p 80:80 -v /home/maxime/Documents/5ETI/Architecture des Systèmes d'Information 2/Ateliers/ASI2/NGINX/nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
+
+docker run --name my-nginx-container -p 80:80 -v nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
 
