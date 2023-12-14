@@ -34,4 +34,7 @@ docker run --name my-nginx-container -p 80:80 -v <YOURPATH>:/etc/nginx/nginx.con
 Ex: On veut écrire à l'API, on addresse la requete à 80/api => transforme la requete en enlevant api
 
 
+docker run --name my-nginx-container -p 80:80 -v /home/maxime/Documents/5ETI/Architecture des Systèmes d'Information 2/Ateliers/ASI2/NGINX/nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
+
+docker run --name my-nginx-container -p 80:80 -v nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
 
