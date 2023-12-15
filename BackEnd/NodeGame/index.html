@@ -1,0 +1,67 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket.IO Example</title>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  // Connect to the server
+  var socket = io();
+  /*
+  
+  socket.emit('myEvent1', "Hello World");
+  socket.on('myEvent2', function(data){
+    alert(data);
+  });
+  */
+  // Listen for a connection
+  socket.on('connection', () => {
+    console.log('Connected to server');
+  });
+
+  // Listen for messages from the server
+  socket.on('receiveMessage', (message) => {
+    console.log('Message from server:', message);
+  });
+
+  // Function to send a message to the server
+  function sendMessage() {
+    console.log(('testr'))
+    // Get the message from the textarea
+    const message = document.getElementById('messageInput').value;
+
+    // Emit the 'sendMessage' event to the server
+    socket.emit('sendMessage', message);
+
+    // Clear the textarea after sending the message
+    document.getElementById('messageInput').value = '';
+  }
+
+  // Attach the sendMessage function to the button click event
+  //document.getElementById('sendMessageButton').addEventListener('click', sendMessage);
+  </script>
+
+<body>
+
+<textarea id="messageInput" placeholder="Type your message"></textarea>
+<button id="sendMessageButton" onclick=sendMessage()>Send Message</button>
+
+</body>
+</html>
+
+
+<script>
+    
+/*
+
+
+var socket = io();
+socket.emit('myEvent1', "Hello World");
+socket.on('myEvent2', function(data){
+alert(data);
+});*/
+</script>
