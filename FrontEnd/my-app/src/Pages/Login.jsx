@@ -7,9 +7,8 @@ import { useDispatch } from 'react-redux';
 import { updateUserID } from '../slices/userSlice';
 
 export const Login = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
+    const dispatch      = useDispatch();
+    const navigate      = useNavigate();
     const [loginState, setLoginState] = useState("is-neutral");
 
 

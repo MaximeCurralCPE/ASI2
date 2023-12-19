@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { update_card_list , update_current_list, update_selected_card } from '../../slices/cardSlice';
 import { useDispatch,useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export const Top = (props) =>{
-    const dispatch = useDispatch();
-    let current_list = useSelector(state=> state.cardReducer.current_list);
-    let userID = useSelector(state=> (state.userReducer.userID));
-    userID = userID +1;
-    userID = userID.toString();
-
+    const navigate      = useNavigate();
+    const dispatch      = useDispatch();
+    let current_list    = useSelector(state=> state.cardReducer.current_list);
+    let userID          = useSelector(state=> (state.userReducer.userID));
+    userID              = userID +1;
+    userID              = userID.toString();
 
     useEffect(() => {
         getInitCardsToSell();
@@ -16,7 +17,6 @@ export const Top = (props) =>{
 
     const getInitCardsToSell = async () => {
         let inventoryData = await getUserCards();
-            //new_list = inventoryData //TODO GET either marketlist or inventorylist
         dispatch(update_card_list(inventoryData));
     }
 
@@ -42,9 +42,9 @@ export const Top = (props) =>{
 
     
     const getUserCards = async () => {    
-            let retData = null;
-            let inventory = [];
-            let card = null;
+            let retData     = null;
+            let inventory   = [];
+            let card        = null;
             
             const response = await fetch('http://localhost:80/api/user/'+userID, {
                 method: 'GET',
@@ -73,6 +73,9 @@ export const Top = (props) =>{
             return inventory;
     }
 
+    const handleOnClick = async (e) => {
+        navigate('/arena');
+    }
 
     
     async function handleOnChangeList(){
@@ -94,6 +97,7 @@ export const Top = (props) =>{
     }
     return (
         <div>
+        <button onClick={handleOnClick}>Arena</button>
         <button onClick={handleOnChangeList}>Change list</button> 
         </div>
         );

@@ -5,14 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Chat } from '../Component/Chat/Chat';
 
 
-
-
 export const Arena = () => {
-
-    
-
-    //socket.emit('myEvent1', "Hello World");
-    socket.on('myEvent2', function(data){alert(data)});
 
     return (
         <>

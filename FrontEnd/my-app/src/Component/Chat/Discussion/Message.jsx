@@ -1,12 +1,14 @@
 import React from "react";
 
 export const Message = (props) => {
+
+    console.log("Message", props.message);
+
     return(
         <>
             <div>
-                <h3>Message</h3>
-                <h6>ID: {props.message.id}</h6>
-                <h6>TEXT:{props.message.text}</h6>
+                <h5>{props.sender}</h5>
+                <h6>{props.message}</h6>
             </div>
         </>
     )

@@ -18,7 +18,8 @@ group project on Information Systems Architecture: Node/React
 ### Installing
 
 1. Run Docker **AS ADMIN**
-2. Run the command in the terminal:
+2. Copy path to nginx.conf file
+3. Run the command in the terminal:
 ```bash
 docker run --name my-nginx-container -p 80:80 -v <YOURPATH>:/etc/nginx/nginx.conf:ro -d nginx
 ```
@@ -43,8 +44,8 @@ npm install --save-dev @vitejs/plugin-react
 npm install react-redux
 ```
 
-
-docker run --name my-nginx-container -p 80:80 -v /home/maxime/Documents/5ETI/Architecture des Systèmes d'Information 2/Ateliers/ASI2/NGINX/nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
-
-docker run --name my-nginx-container -p 80:80 -v nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
+Check on windows if a port is available:
+```bash
+netstat -ano | findstr :<YourPortNumber>
+```
 

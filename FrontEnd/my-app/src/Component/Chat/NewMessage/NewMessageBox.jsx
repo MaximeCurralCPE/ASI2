@@ -1,34 +1,73 @@
 import React, { useState } from 'react';
-import { io } from 'socket.io-client';
+import { useSelector } from 'react-redux';
 
-const NewMessageBox = (socketChat) => {
-  const [userName, setName] = useState('');
+const NewMessageBox = ( {chatSocket} ) => {
+  const [input, setInput] = useState('');
+  let userID          = useSelector(state=> (state.userReducer.userID));
+  userID              = userID +1;
+  userID              = userID.toString();
+  const [username, setUsername] = useState('');
+  
 
-  var socketChat = io('http://localhost:80/chat');
+  const getUsername = async () => {  
+    const response = await fetch('http://localhost:80/api/user/'+userID, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    var reply = await socketChat.emit('myEvent1', 'user name is ${userName}');
-    console.log(reply);
+    if (response.status === 200) {
+      let serverReply = await response.json();
+      console.log("serverReply", serverReply);
+      setUsername(serverReply.login);
+
+    }
+    else {
+        console.error('There was an error!', await response.text());
+    }
+
   };
 
+  const handleSubmit = async (e) => {
+    const message = document.querySelector('#messageInput').value;
+
+    let data = {
+      "message": message,
+      "sender": username
+    };
+
+    chatSocket.emit('Message', data);
+    setInput('');
+  };
+
+  const handleKeyDown = async (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
+  getUsername();
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Enter your name:
+    <form onSubmit={handleKeyDown}>
+      <div className="form-group">
+        <label htmlFor="nameInput">Enter message</label>
         <input
+          id="messageInput"
           type="text"
-          value={userName}
-          onChange={(e) => setName(e.target.value)}
+          className="form-control"
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+          onKeyDown={handleKeyDown}
         />
-      </label>
+      </div>
       <button 
       onClick={handleSubmit}
-      type="submit">Send</button>
+      type="button" className="btn btn-primary">Send</button>
     </form>
   );
 };
 
 export default NewMessageBox;
-

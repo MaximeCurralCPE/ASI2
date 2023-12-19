@@ -1,17 +1,26 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Message } from './Message.jsx';
 
-export const MessageList = (props) => {
+export const MessageList = ( {chatSocket} ) => {
+    
+    const [messages, setMessages] = useState([]);
 
-    const messages = [
-        { id: 1, text: 'Hello' },
-        { id: 2, text: 'How are you?' },
-        { id: 3, text: 'Im good, thanks!' },
-    ];
+    useEffect(() => {
+        chatSocket.on('MessageReply', (reply) => {
+            setMessages( [...messages, reply]);
+        });
+    })
+
 
     const renderMessages = () => {
-        return messages.map((message) => (
-            <Message message={message} />
+        console.log("Rendering messages", messages);
+        return messages.map((message,index) => (
+            console.log("Message", message),
+            <Message 
+                key={index} 
+                message={message.message.toString()} 
+                sender={message.sender.toString()}
+            />
         ));
     };
 
