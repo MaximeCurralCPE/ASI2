@@ -1,6 +1,6 @@
 import React from "react";
 import { Top } from "../Component/Top/Top";
-import { Bottom } from "../Component/Bottom/Bottom";
+import { Bottom } from "../Component/Cards/Bottom";
 
 export const Store = () => {
     return (

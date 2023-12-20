@@ -68,9 +68,15 @@ const NewMessageBox = ( {chatSocket} ) => {
           onKeyDown={handleKeyDown}
         />
       </div>
-      <button 
-      onClick={handleSubmit}
-      type="button" className="btn btn-primary">Send</button>
+{/*       <button
+        onClick={handleSubmit}
+        type="button" className="btn btn-primary">Send</button> */}
+      <button className="fluid ui right labeled icon button" 
+        type="button"
+        onClick={handleSubmit}>
+        <i className="right arrow icon"></i>
+          Send
+      </button>
     </form>
   );
 };
