@@ -13,6 +13,7 @@ export const Arena = () => {
             <Col sm={4}>
                 <div className="container mt-1 mb-2">
                     <Chat 
+                        socket={socket}
                     />
                 </div>
             </Col>
