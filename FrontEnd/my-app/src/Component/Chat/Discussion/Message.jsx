@@ -7,7 +7,7 @@ export const Message = (props) => {
     return(
         <>
             <div>
-                <h5>{props.sender}</h5>
+            <a className="ui blue ribbon label">{props.sender}</a>
                 <h6>{props.message}</h6>
             </div>
         </>
