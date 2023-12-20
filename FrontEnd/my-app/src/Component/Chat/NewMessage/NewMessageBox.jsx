@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
+
+
 const NewMessageBox = ( {chatSocket} ) => {
+
   const [input, setInput] = useState('');
-  let userID          = useSelector(state=> (state.userReducer.userID));
-  userID              = userID +1;
-  userID              = userID.toString();
+  let userID              = useSelector(state=> (state.userReducer.userID));
+  userID                  = userID +1;
+  userID                  = userID.toString();
   const [username, setUsername] = useState('');
   
 
@@ -48,7 +51,9 @@ const NewMessageBox = ( {chatSocket} ) => {
     }
   };
 
-  getUsername();
+  useEffect(() => {
+    getUsername();
+  }, []); 
 
   return (
     <form onSubmit={handleKeyDown}>

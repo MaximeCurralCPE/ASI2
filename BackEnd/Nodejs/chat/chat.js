@@ -20,17 +20,13 @@ io.on("connection", (socket) => {
   console.log('a user is connected');
   connectedUserID.push(socket.id);
   console.log(socket.id);
-});
 
-io.on('connect', (socket) => {
   socket.on('Message', (data) => {
     currentSocket = socket.id;
     console.log("Received Message from "+socket.id, data);
     connectedUserID.forEach(socketID => {
-      if(socketID != currentSocket){
-        socket.to(socketID).emit('MessageReply', data);
-        console.log("Sent Message to "+socketID, data);
-      }
+      io.to(socketID).emit('MessageReply', data);
+      console.log("Sent Message to "+socketID, data);
     });
     
   });
@@ -38,6 +34,11 @@ io.on('connect', (socket) => {
   socket.on('ReceiveChat', (data) => {
     console.log("Sent:", data);
   })
+
+});
+
+io.on('connect', (socket) => {
+  
 })
 
 io.listen(3000);
