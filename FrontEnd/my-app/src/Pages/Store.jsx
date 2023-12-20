@@ -8,7 +8,6 @@ export const Store = () => {
             <div className="container mt-1 mb-2">
                 <Top />
             </div>
-
             <div className="container mt-1 mb-2">
                 <Bottom />
             </div>
