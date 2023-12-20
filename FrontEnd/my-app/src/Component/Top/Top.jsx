@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { update_card_list , update_current_list, update_selected_card } from '../../slices/cardSlice';
 import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Panel } from '../Cards/Panel/Panel';
+
+let textDisplay = "Click to change list"
+
 
 export const Top = (props) =>{
     const navigate      = useNavigate();
@@ -86,19 +90,22 @@ export const Top = (props) =>{
             let inventoryData = await getUserCards();
             dispatch(update_card_list(inventoryData));
             current_list = "inventory"
+            textDisplay = "Inventory"
         }
         else if (current_list == "inventory"){
             let marketData = await getCardsToSell();
             dispatch(update_card_list(marketData));
             current_list = "market"
+            textDisplay = "Market"
         }
         dispatch(update_current_list(current_list)); 
         //dispatch(update_card_list(new_list));    
     }
     return (
         <div>
-        <button onClick={handleOnClick}>Arena</button>
-        <button onClick={handleOnChangeList}>Change list</button> 
+        <button onClick={handleOnClick}>Go to Arena!</button>
+        <button onClick={handleOnChangeList}>Switch between Inventory and Market</button> 
+        <h1>{textDisplay}</h1>
         </div>
         );
 

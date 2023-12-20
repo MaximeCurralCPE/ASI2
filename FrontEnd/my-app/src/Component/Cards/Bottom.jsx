@@ -8,14 +8,12 @@ export const Bottom = () => {
     console.log(!current_card);
     if (current_card == null) {
         return <div>
-            <h1>Card List</h1>
             <CardList></CardList>
         </div>;
     }
     return (
         <>
             <div>
-                <h1>test</h1>
                 <CardList></CardList>
             </div>
             <div>
