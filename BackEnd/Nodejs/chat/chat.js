@@ -37,8 +37,5 @@ io.on("connection", (socket) => {
 
 });
 
-io.on('connect', (socket) => {
-  
-})
 
 io.listen(3000);

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import {Row, Col} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Chat } from '../Component/Chat/Chat';
+import { Game } from '../Component/Game/Game';
 
 
 export const Arena = () => {
@@ -18,12 +19,9 @@ export const Arena = () => {
             </Col>
             <Col sm={4}>
                 <div className="container mt-1 mb-2">
-                    Zone de jeu
-                </div>
-            </Col>
-            <Col sm={4}>
-                <div className="container mt-1 mb-2">
-                    Autre zone
+                    <h1>ZONE DE JEU</h1>
+                    <Game
+                    />
                 </div>
             </Col>
         </Row>
