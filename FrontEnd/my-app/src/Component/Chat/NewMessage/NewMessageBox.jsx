@@ -1,36 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState} from 'react';
 
 
 
-const NewMessageBox = ( {chatSocket} ) => {
 
+const NewMessageBox = ( { chatSocket, username } ) => {
   const [input, setInput] = useState('');
-  let userID              = useSelector(state=> (state.userReducer.userID));
-  userID                  = userID +1;
-  userID                  = userID.toString();
-  const [username, setUsername] = useState('');
   
-
-  const getUsername = async () => {  
-    const response = await fetch('http://localhost:80/api/user/'+userID, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-
-    if (response.status === 200) {
-      let serverReply = await response.json();
-      console.log("serverReply", serverReply);
-      setUsername(serverReply.login);
-
-    }
-    else {
-        console.error('There was an error!', await response.text());
-    }
-
-  };
 
   const handleSubmit = async (e) => {
     const message = document.querySelector('#messageInput').value;
@@ -51,9 +26,7 @@ const NewMessageBox = ( {chatSocket} ) => {
     }
   };
 
-  useEffect(() => {
-    getUsername();
-  }, []); 
+  
 
   return (
     <form onSubmit={handleKeyDown}>
