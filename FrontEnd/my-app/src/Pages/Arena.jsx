@@ -2,9 +2,9 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import {Row, Col} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { CardShort } from '../Component/Cards/Card/CardShort';
-import { Chat } from '../Component/Chat/Chat';
-import { Game } from '../Component/Game/Game';
+import  CardShort  from '../Component/Cards/Card/CardShort';
+import  Chat  from '../Component/Chat/Chat';
+import  { Game }  from '../Component/Game/Game';
 
 
 export const Arena = () => {

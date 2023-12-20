@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-
+import { useSelector } from "react-redux";
 
 export const Game = () => {
     const [roomID, setRoomID] = useState(null);
+    let userID = useSelector(state=> (state.userReducer.userID));
 
     useEffect(() => {
         const socketGame = io("http://localhost:3001");
@@ -22,36 +23,36 @@ export const Game = () => {
         });
     },[]);
 
-   const getUserCards = async () => {    
-            let retData     = null;
-            let inventory   = [];
-            let card        = null;
-            
-            const response = await fetch('http://localhost:80/api/user/'+userID, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+   const getUserCards = async () => {   
+        let retData     = null;
+        let inventory   = [];
+        let card        = null;
+        
+        const response = await fetch('http://localhost:80/api/user/'+userID, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
-            if (response.status === 200) {
-                retData = await response.json();
-                inventory = await Promise.all(retData.cardList.map(async cardID => {
-                    const reponseForCard = await fetch('http://localhost:80/api/card/'+cardID.toString(), {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    });
-                    card = await reponseForCard.json();                  
-                    return card;
-                }));
-            }
-            else {
-                console.error('There was an error!', await response.text());
-            }
-    
-            return inventory;
+        if (response.status === 200) {
+            retData = await response.json();
+            inventory = await Promise.all(retData.cardList.map(async cardID => {
+                const reponseForCard = await fetch('http://localhost:80/api/card/'+cardID.toString(), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                card = await reponseForCard.json();                  
+                return card;
+            }));
+        }
+        else {
+            console.error('There was an error!', await response.text());
+        }
+
+        return inventory;
     }
     
     return(
