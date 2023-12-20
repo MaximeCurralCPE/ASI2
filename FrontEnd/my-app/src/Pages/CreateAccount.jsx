@@ -38,6 +38,7 @@ export const CreateAccount = () => {
 
             }),
         });
+        
         if (response.status === 403) {
             setLoginState("is-invalid");
         }

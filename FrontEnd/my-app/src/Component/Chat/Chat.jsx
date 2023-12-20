@@ -9,15 +9,6 @@ export const Chat = () => {
 
     const socketChat = io("http://localhost:3000");
 
-    socketChat.on('connection', () => {
-        console.log(socketChat.id);
-    })
-    
-      socketChat.on('connect', () => {
-        console.log(socketChat.id);
-    })
-
-
     return(
         <>
             <div className="container mt-1 mb-2">
