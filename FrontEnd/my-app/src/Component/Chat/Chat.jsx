@@ -26,37 +26,72 @@ export const Chat = () => {
 } */
 
 
-import React from "react";
+import React , { useEffect, useState } from "react";
 import { io } from 'socket.io-client';
 import { MessageList } from "./Discussion/MessageList.jsx";
 import NewMessageBox from "./NewMessage/NewMessageBox.jsx";
-
-
+import { useSelector } from 'react-redux';
 
 
 export const ChatComponent = () => {
 
-    const socketChat = io("http://localhost:3000");
+    //const socketChat = io("http://localhost:3000");
+    const [socketChat,setSocketChat] =useState(undefined)
 
-    socketChat.on('connection', () => {
-        console.log(socketChat.id);
-    })
+    let userID = useSelector(state => (state.userReducer.userID));
+    userID = userID + 1;
+    userID = userID.toString();
+    const [username, setUsername] = useState('');
+
+
+    const getUsername = async () => {
+        const response = await fetch('http://localhost:80/api/user/' + userID, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.status === 200) {
+            let serverReply = await response.json();
+            console.log("serverReply", serverReply);
+            setUsername(serverReply.login);
+
+        }
+        else {
+            console.error('There was an error!', await response.text());
+        }
+
+    };
+
+    useEffect(() => {
+        getUsername();
+        let socketChat_tmp = io("http://localhost:3000");
+
+        socketChat_tmp.on('connection', () => {
+            //console.log(socketChat.id);
+        })
     
-      socketChat.on('connect', () => {
-        console.log(socketChat.id);
-    })
+        socketChat_tmp.on('connect', () => {
+            //console.log(socketChat.id);
+        })
+        setSocketChat(socketChat_tmp)
+    }, []);
 
+    
     return (
         <div>
             <div className="container mt-1 mb-2">
                 <MessageList
-                chatSocket={socketChat} 
+                    chatSocket={socketChat}
+                    username={username}
                 />
             </div>
-            
+
             <div className="container mt-1 mb-2">
                 <NewMessageBox
-                    chatSocket={socketChat} 
+                    chatSocket={socketChat}
+                    username={username}
                 />
             </div>
         </div>
