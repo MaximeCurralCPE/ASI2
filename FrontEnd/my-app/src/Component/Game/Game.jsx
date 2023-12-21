@@ -94,7 +94,7 @@ export const Game = () => {
 
         });
         
-        socketGameTmp.on("ChooseCard", (socket,data) => {
+        socketGameTmp.on("ChoosePlay", (socket,data) => {
             const numberLocalCard = Math.floor(Math.random() * localCards.length) ;
             const numberAwayCard = Math.floor(Math.random() * awayCards.length);
             let jsonReply = {
@@ -116,6 +116,9 @@ export const Game = () => {
     return(
         <>
             <h1>{roomID}</h1>
+            
+            <p>LocalCards  : {localCards}</p>
+            <p>AwayCards  : {awayCards}</p>
         </> 
 )
 }

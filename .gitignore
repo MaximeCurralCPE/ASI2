@@ -17,6 +17,8 @@ FrontEnd/my-app/node_modules/
 node_modules/
 Atelier1/my-app/node_modules
 
+BackEnd/Nodejs/node_modules
+FrontEnd/my-app/node_modules
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

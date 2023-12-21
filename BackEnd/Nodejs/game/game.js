@@ -67,6 +67,7 @@ io.on("connection", (socket) => {
         if (data["Cards"] != null) {
             if (room) {
                 room.setCards(socket.id, data["Cards"]);
+                room.tryStartGame()
             } else {
                 console.error(`Room with ID ${data["roomID"]} does not exist`);
             }
@@ -77,8 +78,13 @@ io.on("connection", (socket) => {
         let room = RoomDict[data["roomID"]];
         if (room) {
             // Handle the attack logic here
-            // You can access the attacking player's ID with socket.id
-            // You can access the attack data with data["attackData"]
+            player1Cards = room.getCardsPlayer1()
+            player2Cards = room.getCardsPlayer2()
+           
+            room.simulation(data["localplayer"],data["numberLocalCard"],data["numberAwayCard"])
+            room.nextTurn()
+            
+
         } else {
             console.error(`Room with ID ${data["roomID"]} does not exist`);
         }
