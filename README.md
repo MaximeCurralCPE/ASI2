@@ -13,6 +13,11 @@ group project on Information Systems Architecture: Node/React
 
 [LINK](https://prod.e-campus.cpe.fr/mod/page/view.php?id=33598)
 
+## Before using
+
+NOTE: User the professor's backend to make the application work. We were not able to completely finish our springboot back end with the ESB bus system.
+Launch on 8083.
+
 ## Reverse Proxy
 
 ### Installing
