@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,9 @@ import com.cpe.springboot.user.model.UserModel;
 public class UserRestController {
 
 	private final UserService userService;
+
+	@Autowired
+	private BusService bus;
 	
 	public UserRestController(UserService userService) {
 		this.userService=userService;
@@ -47,7 +51,6 @@ public class UserRestController {
 			return DTOMapper.fromUserModelToUserDTO(ruser.get());
 		}
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User id:"+id+", not found",null);
-
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/user")
@@ -65,6 +68,17 @@ public class UserRestController {
 	public void deleteUser(@PathVariable String id) {
 		userService.deleteUser(id);
 	}
+
+	@RequestMapping(method=RequestMethod.POST,value="/auth")
+	private void getAllCourses(@RequestBody AuthDTO authDto) {
+		String username = authDto.getUsername();
+		String password = authDto.getPassword();
+		UserModel u = new UserModel(username,password);
+		bus.sendMsg(u);
+	}
+
+
+	/* 
 	
 	@RequestMapping(method=RequestMethod.POST,value="/auth")
 	private Integer getAllCourses(@RequestBody AuthDTO authDto) {
@@ -76,6 +90,8 @@ public class UserRestController {
 		throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Authentification Failed",null);
 
 	}
+
+	*/
 	
 
 }
