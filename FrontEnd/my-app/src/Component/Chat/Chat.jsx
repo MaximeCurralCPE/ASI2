@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
-import { MessageList } from "./Discussion/MessageList.jsx";
 import { Row, Col } from "react-bootstrap";
 import NewMessageBox from "./NewMessage/NewMessageBox.jsx";
 import { io } from 'socket.io-client';
+import React , { useEffect, useState } from "react";
+import { MessageList } from "./Discussion/MessageList.jsx";
+import { useSelector } from 'react-redux';
 
 
 export const Chat = () => {
@@ -23,14 +24,7 @@ export const Chat = () => {
             </div>
         </> 
 )
-} */
-
-
-import React , { useEffect, useState } from "react";
-import { io } from 'socket.io-client';
-import { MessageList } from "./Discussion/MessageList.jsx";
-import NewMessageBox from "./NewMessage/NewMessageBox.jsx";
-import { useSelector } from 'react-redux';
+} 
 
 
 export const ChatComponent = () => {

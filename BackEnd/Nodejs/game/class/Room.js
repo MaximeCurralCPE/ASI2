@@ -49,31 +49,42 @@ class Room {
         return (this.player2Cards)
     }
     
-    sendMessagetoAllinRoom(event,jsonMessage) {
-        console.log("Sending message to all in room: "+this.roomId);
-        if (this.IDplayer1) {
-            sendMessageToPlayer(this.IDplayer1,event,jsonMessage)
-        }
-    
-        if (this.IDplayer2) {
-            sendMessageToPlayer(this.IDplayer2,event,jsonMessage)
-        }
-    }
-
     sendMessageToPlayer(playerID,event,jsonMessage) {
         console.log("Sending message to "+ playerID);
         this.io.to(playerID).emit(event, jsonMessage);
     }
+
+    sendMessagetoAllinRoom(event,jsonMessage) {
+        console.log("Sending message to all in room: "+this.roomId);
+        if (this.IDplayer1) {
+            this.sendMessageToPlayer(this.IDplayer1,event,jsonMessage)
+        }
+    
+        if (this.IDplayer2) {
+            this.sendMessageToPlayer(this.IDplayer2,event,jsonMessage)
+        }
+    }
+
+    
     tryStartGame(){
         if (this.IDplayer1 && this.IDplayer2 && this.player1Cards != [] && this.player2Cards != []){
                 this.startGame();
             }
     }
+
+    updateCards(){
+        let Cards = {
+            "player1Cards": this.player1Cards,
+            "player2Cards": this.player2Cards
+        }
+        this.sendMessagetoAllinRoom("UpdateCards",Cards);
+    }
+
     startGame() {
         this.gameStarted = true;
         console.log("Game started");
-        updateCards();
-        this.sendMessageToPlayer(CorrespondenceIDPlayer.get(this.playerTurn),'ChoosePlay',{})
+        this.updateCards();
+        this.sendMessageToPlayer(this.CorrespondenceIDPlayer[this.playerTurn],'ChoosePlay',{})
         // Logic to start the game
     
     }
@@ -101,7 +112,7 @@ class Room {
         else{
             cardSetToChange[numberLocalCard]= result
         }
-        this.setCards(CorrespondenceIDPlayer.get(playertoChange),cardSetToChange)
+        this.setCards(CorrespondenceIDPlayer[playertoChange],cardSetToChange)
     }
     combat(carteAttaque,carteDefence){
         carteDefence.hp = carteDefence.defence - carteAttaque.attack
@@ -120,16 +131,10 @@ class Room {
         else{
             this.updateCards()
             this.swapPlayerTurn()
-            this.sendMessageToPlayer(CorrespondenceIDPlayer.get(this.playerTurn),'ChoosePlay',{})
+            this.sendMessageToPlayer(this.CorrespondenceIDPlayer[this.playerTurn],'ChoosePlay',{})
         }
     }
-    updateCards(){
-        let Cards = {
-            "player1Cards": this.player1Cards,
-            "player2Cards": this.player2Cards
-        }
-        this.sendMessagetoAllinRoom("UpdateCards",Cards);
-    }
+    
     
     endGame() {
         this.gameStarted = false;
